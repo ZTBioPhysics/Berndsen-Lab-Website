@@ -42,21 +42,6 @@ GitHub Repository (publications-list)
 - `requirements.txt` - Python dependencies (scholarly)
 - `.github/workflows/update-publications.yml` - Automation workflow
 
-### Google Scholar ID
-Your Scholar ID: `u9i3_ywAAAAJ`
-(Found in your Scholar URL: `https://scholar.google.com/citations?user=u9i3_ywAAAAJ`)
-
-### Manual Update
-To force an update:
-1. Go to: https://github.com/ZTBioPhysics/publications-list/actions
-2. Click "Update Publications List"
-3. Click "Run workflow"
-
-### Embed Code
-```html
-<iframe src="https://ztbiophysics.github.io/publications-list/" width="100%" height="2500" style="border:none;"></iframe>
-```
-
 ---
 
 ## Press & Media Page
@@ -111,11 +96,6 @@ Edit `press.json` and add a new entry in the `"articles"` array:
 }
 ```
 
-### Embed Code
-```html
-<iframe src="https://ztbiophysics.github.io/publications-list/press.html" width="100%" height="1800" style="border:none;"></iframe>
-```
-
 ---
 
 ## Updating & Pushing Changes
@@ -136,16 +116,6 @@ git push
 ### After Pushing
 - Changes go live on GitHub Pages within 1-2 minutes
 - Refresh your Google Sites page to see updates
-
----
-
-## Repository Information
-
-- **GitHub Repo:** https://github.com/ZTBioPhysics/publications-list
-- **Publications URL:** https://ztbiophysics.github.io/publications-list/
-- **Press Page URL:** https://ztbiophysics.github.io/publications-list/press.html
-- **3D Structures URL:** https://ztbiophysics.github.io/publications-list/structures.html
-- **Local Path:** `/Users/ztbm97/Library/CloudStorage/OneDrive-UniversityofMissouri/Berndsen_Lab/Code/GitHub/publications-list/`
 
 ---
 
@@ -170,11 +140,6 @@ New PDB structures are automatically detected when:
 - A visitor loads the page (fetches fresh from PDB API)
 
 No manual updates needed - new structures appear automatically!
-
-### Embed Code
-```html
-<iframe src="https://ztbiophysics.github.io/publications-list/structures.html" width="100%" height="700" style="border:none;"></iframe>
-```
 
 ### Customization
 To add new categories, edit the `categories` object in `structures.html`:
@@ -262,7 +227,7 @@ Simple chronological updates about:
 - The page shows a gold placeholder if an image fails to load
 
 ### Publications not updating
-- Check GitHub Actions: https://github.com/ZTBioPhysics/publications-list/actions
+- Check GitHub Actions in your repository
 - Google Scholar may rate-limit requests; the script handles this gracefully
 
 ### Embed not showing in Google Sites
