@@ -30,8 +30,8 @@
 
     /* Sidebar */
     .sidebar {
-      width: 320px;
-      min-width: 320px;
+      width: 280px;
+      min-width: 280px;
       background: #f8f8f8;
       border-right: 1px solid #e0e0e0;
       display: flex;
@@ -173,8 +173,20 @@
       height: 100%;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
+    /* Narrower screens (like Google Sites embed) */
+    @media (max-width: 900px) {
+      .sidebar {
+        width: 240px;
+        min-width: 240px;
+      }
+
+      .structure-title {
+        font-size: 0.75rem;
+      }
+    }
+
+    /* Mobile - stack vertically */
+    @media (max-width: 600px) {
       html, body {
         overflow: auto;
       }
@@ -188,14 +200,18 @@
       .sidebar {
         width: 100%;
         min-width: auto;
-        max-height: 250px;
+        max-height: 200px;
         border-right: none;
         border-bottom: 1px solid #e0e0e0;
       }
 
       .viewer-container {
-        height: 70vh;
-        min-height: 400px;
+        height: 60vh;
+        min-height: 350px;
+      }
+
+      .structure-item {
+        padding: 8px 10px;
       }
     }
   </style>
