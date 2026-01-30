@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Structures</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      color: #333;
+      background: #fff;
+    }
+
+    .container {
+      display: flex;
+      height: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 320px;
+      min-width: 320px;
+      background: #f8f8f8;
+      border-right: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      padding: 16px;
+      border-bottom: 2px solid #F1B82D;
+      background: #fff;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-header p {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .structure-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .category {
+      margin-bottom: 16px;
+    }
+
+    .category-header {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #F1B82D;
+      padding: 8px 12px;
+      background: #fff;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      border-left: 3px solid #F1B82D;
+    }
+
+    .structure-item {
+      padding: 10px 12px;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .structure-item:hover {
+      border-color: #F1B82D;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .structure-item.active {
+      border-color: #F1B82D;
+      background: #fffbf0;
+      box-shadow: 0 2px 8px rgba(241, 184, 45, 0.2);
+    }
+
+    .structure-id {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      font-family: monospace;
+    }
+
+    .structure-title {
+      font-size: 0.8rem;
+      color: #555;
+      margin-top: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .structure-links {
+      margin-top: 6px;
+    }
+
+    .structure-links a {
+      font-size: 0.7rem;
+      color: #0066cc;
+      text-decoration: none;
+      margin-right: 12px;
+    }
+
+    .structure-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Viewer */
+    .viewer-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #1a1a1a;
+    }
+
+    .viewer-header {
+      padding: 12px 16px;
+      background: #252525;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .viewer-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      flex: 1;
+    }
+
+    .viewer-hint {
+      font-size: 0.75rem;
+      color: #888;
+    }
+
+    #viewer {
+      flex: 1;
+      position: relative;
+    }
+
+    #molstar-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      html, body {
+        overflow: auto;
+      }
+
+      .container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100%;
+      }
+
+      .sidebar {
+        width: 100%;
+        min-width: auto;
+        max-height: 250px;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .viewer-container {
+        height: 70vh;
+        min-height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>PDB Structures</h2>
+        <p id="structure-count">Loading structures...</p>
+      </div>
+      <div class="structure-list" id="structure-list">
+        <div class="loading-message">Loading...</div>
+      </div>
+    </div>
+
+    <div class="viewer-container">
+      <div class="viewer-header">
+        <span class="viewer-title" id="viewer-title">Select a structure to view</span>
+        <span class="viewer-hint">Use mouse to rotate, scroll to zoom</span>
+      </div>
+      <div id="viewer">
+        <iframe id="molstar-frame" src=""></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let structuresData = [];
+
+    // Category definitions based on keywords
+    const categories = {
+      'HIV/SIV Envelope Glycoproteins': ['HIV', 'SIV', 'Envelope', 'SOSIP', 'ApexGT'],
+      'Lipoproteins': ['ApoB', 'LDL', 'Lipoprotein', 'Low-Density'],
+      'Bacterial Proteins': ['Escherichia', 'E. coli', 'EtpA', 'adhesin', 'Bacterial']
+    };
+
+    // Categorize a structure based on its title
+    function categorizeStructure(title) {
+      for (const [category, keywords] of Object.entries(categories)) {
+        for (const keyword of keywords) {
+          if (title.toLowerCase().includes(keyword.toLowerCase())) {
+            return category;
+          }
+        }
+      }
+      return 'Other';
+    }
+
+    // Fetch structures from RCSB PDB
+    async function fetchStructures() {
+      const searchQuery = {
+        query: {
+          type: "terminal",
+          service: "text",
+          parameters: {
+            attribute: "audit_author.name",
+            operator: "contains_phrase",
+            value: "Berndsen, Z.T."
+          }
+        },
+        return_type: "entry",
+        request_options: {
+          return_all_hits: true
+        }
+      };
+
+      try {
+        // Get PDB IDs
+        const searchResponse = await fetch('https://search.rcsb.org/rcsbsearch/v2/query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(searchQuery)
+        });
+        const searchData = await searchResponse.json();
+        const pdbIds = searchData.result_set.map(r => r.identifier);
+
+        // Fetch details for each structure
+        const structures = await Promise.all(pdbIds.map(async (pdbId) => {
+          try {
+            const response = await fetch(`https://data.rcsb.org/rest/v1/core/entry/${pdbId}`);
+            const data = await response.json();
+            return {
+              id: pdbId,
+              title: data.struct?.title || 'Unknown',
+              deposit_date: data.rcsb_accession_info?.deposit_date || '',
+              release_date: data.rcsb_accession_info?.initial_release_date || ''
+            };
+          } catch (e) {
+            return { id: pdbId, title: 'Unknown', deposit_date: '', release_date: '' };
+          }
+        }));
+
+        structuresData = structures;
+        renderStructureList(structures);
+
+      } catch (error) {
+        console.error('Error fetching structures:', error);
+        document.getElementById('structure-list').innerHTML =
+          '<div class="loading-message">Error loading structures</div>';
+      }
+    }
+
+    // Render the structure list grouped by category
+    function renderStructureList(structures) {
+      const container = document.getElementById('structure-list');
+      const countEl = document.getElementById('structure-count');
+
+      // Group by category
+      const grouped = {};
+      structures.forEach(s => {
+        const category = categorizeStructure(s.title);
+        if (!grouped[category]) grouped[category] = [];
+        grouped[category].push(s);
+      });
+
+      // Sort categories by desired order
+      const categoryOrder = ['HIV/SIV Envelope Glycoproteins', 'Lipoproteins', 'Bacterial Proteins', 'Other'];
+
+      let html = '';
+      for (const category of categoryOrder) {
+        if (grouped[category] && grouped[category].length > 0) {
+          // Sort structures within category by release date (newest first)
+          grouped[category].sort((a, b) => (b.release_date || '').localeCompare(a.release_date || ''));
+
+          html += `<div class="category">
+            <div class="category-header">${category} (${grouped[category].length})</div>`;
+
+          for (const s of grouped[category]) {
+            html += `
+              <div class="structure-item" data-pdb="${s.id}" onclick="loadStructure('${s.id}')">
+                <div class="structure-id">${s.id}</div>
+                <div class="structure-title">${s.title}</div>
+                <div class="structure-links">
+                  <a href="https://www.rcsb.org/structure/${s.id}" target="_blank" onclick="event.stopPropagation()">RCSB PDB</a>
+                  <a href="https://www.ebi.ac.uk/pdbe/entry/pdb/${s.id.toLowerCase()}" target="_blank" onclick="event.stopPropagation()">PDBe</a>
+                </div>
+              </div>`;
+          }
+          html += '</div>';
+        }
+      }
+
+      container.innerHTML = html;
+      countEl.textContent = `${structures.length} structures from RCSB PDB`;
+    }
+
+    // Load a structure into the viewer
+    function loadStructure(pdbId) {
+      const iframe = document.getElementById('molstar-frame');
+      const titleEl = document.getElementById('viewer-title');
+
+      // Update active state in list
+      document.querySelectorAll('.structure-item').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.structure-item[data-pdb="${pdbId}"]`)?.classList.add('active');
+
+      // Find structure info
+      const structureInfo = structuresData.find(s => s.id === pdbId);
+      titleEl.textContent = structureInfo ? `${pdbId}: ${structureInfo.title}` : pdbId;
+
+      // Load structure in PDBe Mol* viewer
+      iframe.src = `https://www.ebi.ac.uk/pdbe/entry/view3D/${pdbId.toLowerCase()}/?viewer=molstar`;
+    }
+
+    // Initialize
+    fetchStructures();
+  </script>
+</body>
+</html>
