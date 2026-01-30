@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Publications</h1>
+    <div class="stats">
+      <span id="pub-count"></span>
+      <span id="citation-count"></span>
+    </div>
+  </div>
+
+  <div id="publications">
+    <div class="loading">Loading publications...</div>
+  </div>
+
+  <div class="last-updated" id="last-updated"></div>
+
+  <script>
+    // Use relative path - works both locally and on GitHub Pages
+    fetch('publications.json')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load publications');
+        return response.json();
+      })
+      .then(data => {
+        const container = document.getElementById('publications');
+        const pubCount = document.getElementById('pub-count');
+        const citationCount = document.getElementById('citation-count');
+        const lastUpdated = document.getElementById('last-updated');
+
+        // Calculate total citations
+        const totalCitations = data.publications.reduce((sum, pub) => sum + (pub.citations || 0), 0);
+
+        pubCount.textContent = `${data.total_publications} publications`;
+        citationCount.textContent = `${totalCitations} total citations`;
+
+        // Format last updated date
+        const updateDate = new Date(data.last_updated);
+        lastUpdated.textContent = `Last updated: ${updateDate.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}`;
+
+        // Render publications
+        container.innerHTML = data.publications.map(pub => {
+          const hasUrl = pub.url && pub.url.length > 0;
+          const titleHtml = hasUrl
+            ? `<a href="${pub.url}" target="_blank" rel="noopener">${pub.title}</a>`
+            : pub.title;
+
+          return `
+            <div class="publication">
+              <div class="pub-title">${titleHtml}</div>
+              <div class="pub-authors">${pub.authors}</div>
+              ${pub.venue ? `<div class="pub-venue">${pub.venue}</div>` : ''}
+              <div class="pub-meta">
+                ${pub.year ? `<span class="pub-year">${pub.year}</span>` : ''}
+                ${pub.citations > 0 ? `<span class="pub-citations">Cited by <strong>${pub.citations}</strong></span>` : ''}
+                <span class="pub-links">
+                  <a href="${pub.scholar_url}" target="_blank" rel="noopener">Google Scholar</a>
+                </span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      })
+      .catch(error => {
+        document.getElementById('publications').innerHTML =
+          `<div class="error">Error loading publications: ${error.message}</div>`;
+      });
+  </script>
+</body>
+</html>
