@@ -11,11 +11,43 @@
       height: auto;
       overflow: visible;
     }
+
+    .sort-controls {
+      display: inline-flex;
+      gap: 8px;
+      margin-left: 16px;
+    }
+
+    .sort-btn {
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      border: 1px solid #ddd;
+      background: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .sort-btn:hover {
+      border-color: #F1B82D;
+    }
+
+    .sort-btn.active {
+      background: #F1B82D;
+      border-color: #F1B82D;
+      color: #000;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
   <div class="stats" style="margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid #F1B82D; font-size: 0.9rem; color: #666;">
     <span id="pub-count"></span> · <span id="citation-count"></span>
+    <span class="sort-controls">
+      <span style="color: #999;">Sort by:</span>
+      <button class="sort-btn active" id="sort-date" onclick="sortBy('date')">Date</button>
+      <button class="sort-btn" id="sort-citations" onclick="sortBy('citations')">Citations</button>
+    </span>
   </div>
 
   <div id="publications">
@@ -25,17 +57,72 @@
   <div class="last-updated" id="last-updated"></div>
 
   <script>
-    // Use relative path - works both locally and on GitHub Pages
+    let publicationsData = [];
+    let currentSort = 'date';
+
+    // Render publications list
+    function renderPublications(publications) {
+      const container = document.getElementById('publications');
+
+      container.innerHTML = publications.map(pub => {
+        const hasUrl = pub.url && pub.url.length > 0;
+        const titleHtml = hasUrl
+          ? `<a href="${pub.url}" target="_blank" rel="noopener">${pub.title}</a>`
+          : pub.title;
+
+        return `
+          <div class="publication">
+            <div class="pub-title">${titleHtml}</div>
+            <div class="pub-authors">${pub.authors}</div>
+            ${pub.venue ? `<div class="pub-venue">${pub.venue}</div>` : ''}
+            <div class="pub-meta">
+              ${pub.year ? `<span class="pub-year">${pub.year}</span>` : ''}
+              ${pub.citations > 0 ? `<span class="pub-citations">Cited by <strong>${pub.citations}</strong></span>` : ''}
+              <span class="pub-links">
+                <a href="${pub.scholar_url}" target="_blank" rel="noopener">Google Scholar</a>
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Sort publications
+    function sortBy(method) {
+      currentSort = method;
+
+      // Update button states
+      document.getElementById('sort-date').classList.toggle('active', method === 'date');
+      document.getElementById('sort-citations').classList.toggle('active', method === 'citations');
+
+      // Sort the data
+      let sorted = [...publicationsData];
+      if (method === 'date') {
+        sorted.sort((a, b) => {
+          const yearA = parseInt(a.year) || 0;
+          const yearB = parseInt(b.year) || 0;
+          return yearB - yearA || (b.citations || 0) - (a.citations || 0);
+        });
+      } else if (method === 'citations') {
+        sorted.sort((a, b) => (b.citations || 0) - (a.citations || 0));
+      }
+
+      renderPublications(sorted);
+    }
+
+    // Fetch and initialize
     fetch('publications.json')
       .then(response => {
         if (!response.ok) throw new Error('Failed to load publications');
         return response.json();
       })
       .then(data => {
-        const container = document.getElementById('publications');
         const pubCount = document.getElementById('pub-count');
         const citationCount = document.getElementById('citation-count');
         const lastUpdated = document.getElementById('last-updated');
+
+        // Store data globally
+        publicationsData = data.publications;
 
         // Calculate total citations
         const totalCitations = data.publications.reduce((sum, pub) => sum + (pub.citations || 0), 0);
@@ -51,28 +138,8 @@
           day: 'numeric'
         })}`;
 
-        // Render publications
-        container.innerHTML = data.publications.map(pub => {
-          const hasUrl = pub.url && pub.url.length > 0;
-          const titleHtml = hasUrl
-            ? `<a href="${pub.url}" target="_blank" rel="noopener">${pub.title}</a>`
-            : pub.title;
-
-          return `
-            <div class="publication">
-              <div class="pub-title">${titleHtml}</div>
-              <div class="pub-authors">${pub.authors}</div>
-              ${pub.venue ? `<div class="pub-venue">${pub.venue}</div>` : ''}
-              <div class="pub-meta">
-                ${pub.year ? `<span class="pub-year">${pub.year}</span>` : ''}
-                ${pub.citations > 0 ? `<span class="pub-citations">Cited by <strong>${pub.citations}</strong></span>` : ''}
-                <span class="pub-links">
-                  <a href="${pub.scholar_url}" target="_blank" rel="noopener">Google Scholar</a>
-                </span>
-              </div>
-            </div>
-          `;
-        }).join('');
+        // Initial render (sorted by date)
+        sortBy('date');
       })
       .catch(error => {
         document.getElementById('publications').innerHTML =
