@@ -37,6 +37,40 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      transition: width 0.2s ease, min-width 0.2s ease;
+    }
+
+    .sidebar.collapsed {
+      width: 40px;
+      min-width: 40px;
+    }
+
+    .sidebar.collapsed .sidebar-header h2,
+    .sidebar.collapsed .sidebar-header p,
+    .sidebar.collapsed .structure-list {
+      display: none;
+    }
+
+    .collapse-btn {
+      background: #F1B82D;
+      border: none;
+      color: #000;
+      cursor: pointer;
+      padding: 8px;
+      font-size: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .collapse-btn:hover {
+      background: #e5a820;
+    }
+
+    .sidebar.collapsed .collapse-btn {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      padding: 12px 8px;
+      height: 100%;
     }
 
     .sidebar-header {
@@ -218,7 +252,8 @@
 </head>
 <body>
   <div class="container">
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
+      <button class="collapse-btn" onclick="toggleSidebar()" id="collapse-btn">◀ Hide</button>
       <div class="sidebar-header">
         <h2>PDB Structures</h2>
         <p id="structure-count">Loading structures...</p>
@@ -374,6 +409,19 @@
 
       // Load structure in PDBe Mol* viewer
       iframe.src = `https://www.ebi.ac.uk/pdbe/entry/view3D/${pdbId.toLowerCase()}/?viewer=molstar`;
+    }
+
+    // Toggle sidebar visibility
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const btn = document.getElementById('collapse-btn');
+      sidebar.classList.toggle('collapsed');
+
+      if (sidebar.classList.contains('collapsed')) {
+        btn.textContent = '▶ Show';
+      } else {
+        btn.textContent = '◀ Hide';
+      }
     }
 
     // Initialize
