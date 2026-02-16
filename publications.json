@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-15T04:26:08.197009Z",
+  "last_updated": "2026-02-16T04:30:00.425303Z",
   "scholar_id": "u9i3_ywAAAAJ",
   "total_publications": 32,
   "publications": [
@@ -8,7 +8,7 @@
       "authors": "Zachary T Berndsen and C Keith Cassidy",
       "year": 2025,
       "venue": "Nature 638 (8051), 836-843, 2025",
-      "citations": 30,
+      "citations": 32,
       "url": "https://www.nature.com/articles/s41586-024-08467-w",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:TQgYirikUcIC"
     },
@@ -89,7 +89,7 @@
       "authors": "Jordan R Willis and Zachary T Berndsen and Krystal M Ma and Jon M Steichen and Torben Schiffner and Elise Landais and Alessia Liguori and Oleksandr Kalyuzhniy and Joel D Allen and Sabyasachi Baboo and Oluwarotimi Omorodion and Jolene K Diedrich and Xiaozhen Hu and Erik Georgeson and Nicole Phelps and Saman Eskandarzadeh and Bettina Groschel and Michael Kubitz and Yumiko Adachi and Tina-Marie Mullin and Nushin B Alavi and Samantha Falcone and Sunny Himansu and Andrea Carfi and Ian A Wilson and John R Yates and James C Paulson and Max Crispin and Andrew B Ward and William R Schief",
       "year": 2022,
       "venue": "Immunity 55 (11), 2149-2167. e9, 2022",
-      "citations": 63,
+      "citations": 64,
       "url": "https://www.cell.com/immunity/fulltext/S1074-7613(22)00414-9?uuid=uuid%3A45ac63ea-698e-413a-a705-9851e097f980",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:qxL8FJ1GzNcC"
     },
@@ -98,7 +98,7 @@
       "authors": "Eleonora Melzi and Jordan R Willis and Krystal M Ma and Ying-Cing Lin and Sven Kratochvil and Zachary T Berndsen and Elise A Landais and Oleksandr Kalyuzhniy and Usha Nair and John Warner and Jon M Steichen and Anton Kalyuzhniy and Amber Le and Simone Pecetta and Manfredo Perez and Kathrin Kirsch and Stephanie R Weldon and Samantha Falcone and Sunny Himansu and Andrea Carfi and Devin Sok and Andrew B Ward and William R Schief and Facundo D Batista",
       "year": 2022,
       "venue": "Immunity 55 (11), 2168-2186. e6, 2022",
-      "citations": 60,
+      "citations": 61,
       "url": "https://www.cell.com/immunity/fulltext/S1074-7613(22)00497-6",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:aqlVkmm33-oC"
     },
@@ -116,7 +116,7 @@
       "authors": "Aleksandar Antanasijevic and Leigh M Sewall and Christopher A Cottrell and Diane G Carnathan and Luis E Jimenez and Julia T Ngo and Jennifer B Silverman and Bettina Groschel and Erik Georgeson and Jinal Bhiman and Raiza Bastidas and Celia LaBranche and Joel D Allen and Jeffrey Copps and Hailee R Perrett and Kimmo Rantalainen and Fabien Cannac and Yuhe R Yang and Alba Torrents de la Peña and Rebeca Froes Rocha and Zachary T Berndsen and David Baker and Neil P King and Rogier W Sanders and John P Moore and Shane Crotty and Max Crispin and David C Montefiori and Dennis R Burton and William R Schief and Guido Silvestri and Andrew B Ward",
       "year": 2021,
       "venue": "Nature communications 12 (1), 4817, 2021",
-      "citations": 67,
+      "citations": 68,
       "url": "https://www.nature.com/articles/s41467-021-25087-4",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:_kc_bZDykSQC"
     },
@@ -125,7 +125,7 @@
       "authors": "Yasunori Watanabe and Zachary T Berndsen and Jayna Raghwani and Gemma E Seabright and Joel D Allen and Oliver G Pybus and Jason S McLellan and Ian A Wilson and Thomas A Bowden and Andrew B Ward and Max Crispin",
       "year": 2020,
       "venue": "Nature communications 11 (1), 2688, 2020",
-      "citations": 414,
+      "citations": 417,
       "url": "https://www.nature.com/articles/s41467-020-16567-0",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:kNdYIx-mwKoC"
     },
@@ -143,7 +143,7 @@
       "authors": "Zachary T Berndsen and Srirupa Chakraborty and Xiaoning Wang and Christopher A Cottrell and Jonathan L Torres and Jolene K Diedrich and Cesar A López and John R Yates III and Marit J van Gils and James C Paulson and Sandrasegaram Gnanakaran and Andrew B Ward",
       "year": 2020,
       "venue": "Proceedings of the National Academy of Sciences 117 (45), 28014-28025, 2020",
-      "citations": 88,
+      "citations": 86,
       "url": "https://www.pnas.org/doi/abs/10.1073/pnas.2000260117",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:5nxA0vEk-isC"
     },
@@ -161,7 +161,7 @@
       "authors": "Robyn L Stanfield and Zachary T Berndsen and Ruiqi Huang and Devin Sok and Gabrielle Warner and Jonathan L Torres and Dennis R Burton and Andrew B Ward and Ian A Wilson and Vaughn V Smider",
       "year": 2020,
       "venue": "Science Advances 6 (22), eaba0468, 2020",
-      "citations": 44,
+      "citations": 43,
       "url": "https://www.science.org/doi/abs/10.1126/sciadv.aba0468",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:Zph67rFs4hoC"
     },
@@ -179,7 +179,7 @@
       "authors": "Philip JM Brouwer and Aleksandar Antanasijevic and Zachary Berndsen and Anila Yasmeen and Brooke Fiala and Tom PL Bijl and Ilja Bontjer and Jacob B Bale and William Sheffler and Joel D Allen and Anna Schorcht and Judith A Burger and Miguel Camacho and Daniel Ellis and Christopher A Cottrell and Anna-Janina Behrens and Marco Catalano and Iván del Moral-Sánchez and Thomas J Ketas and Celia LaBranche and Marit J van Gils and Kwinten Sliepen and Lance J Stewart and Max Crispin and David C Montefiori and David Baker and John P Moore and Per Johan Klasse and Andrew B Ward and Neil P King and Rogier W Sanders",
       "year": 2019,
       "venue": "Nature Communications 10 (1), 4272, 2019",
-      "citations": 213,
+      "citations": 212,
       "url": "https://www.nature.com/articles/s41467-019-12080-1",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:0EnyYjriUFMC"
     },
@@ -188,7 +188,7 @@
       "authors": "Benjamin von Bredow and Raiees Andrabi and Michael Grunst and Andres G Grandea III and Khoa Le and Ge Song and Zachary T Berndsen and Katelyn Porter and Jesper Pallesen and Andrew B Ward and Dennis R Burton and David T Evans",
       "year": 2019,
       "venue": "MBio 10 (4), 10.1128/mbio. 01255-19, 2019",
-      "citations": 23,
+      "citations": 25,
       "url": "https://journals.asm.org/doi/abs/10.1128/mbio.01255-19",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:hqOjcs7Dif8C"
     },
@@ -197,7 +197,7 @@
       "authors": "Liwei Cao and Matthias Pauthner and Raiees Andrabi and Kimmo Rantalainen and Zachary Berndsen and Jolene K Diedrich and Sergey Menis and Devin Sok and Raiza Bastidas and Sung-Kyu Robin Park and Claire M Delahunty and Lin He and Javier Guenaga and Richard T Wyatt and William R Schief and Andrew B Ward and John R Yates III and Dennis R Burton and James C Paulson",
       "year": 2018,
       "venue": "Nature communications 9 (1), 3693, 2018",
-      "citations": 150,
+      "citations": 151,
       "url": "https://www.nature.com/articles/s41467-018-06121-4",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:_FxGoFyzp5QC"
     },
@@ -206,7 +206,7 @@
       "authors": "Kimmo Rantalainen and Zachary T Berndsen and Sasha Murrell and Liwei Cao and Oluwarotimi Omorodion and Jonathan L Torres and Mengyu Wu and Jeffrey Umotoy and Jeffrey Copps and Pascal Poignard and Elise Landais and James C Paulson and Ian A Wilson and Andrew B Ward",
       "year": 2018,
       "venue": "Cell reports 23 (11), 3249-3261, 2018",
-      "citations": 67,
+      "citations": 70,
       "url": "https://www.cell.com/cell-reports/fulltext/S2211-1247(18)30792-7",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:eQOLeE2rZwMC"
     },
@@ -224,7 +224,7 @@
       "authors": "Devin Sok and Khoa M Le and Melissa Vadnais and Karen L Saye-Francisco and Joseph G Jardine and Jonathan L Torres and Zachary T Berndsen and Leopold Kong and Robyn Stanfield and Jennifer Ruiz and Alejandra Ramos and Chi-Hui Liang and Patricia L Chen and Michael F Criscitiello and Waithaka Mwangi and Ian A Wilson and Andrew B Ward and Vaughn V Smider and Dennis R Burton",
       "year": 2017,
       "venue": "Nature 548 (7665), 108-111, 2017",
-      "citations": 192,
+      "citations": 190,
       "url": "https://www.nature.com/articles/nature23301",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:qjMakFHDy7sC"
     },
@@ -251,7 +251,7 @@
       "authors": "Nicholas Keller and Zachary T Berndsen and Paul J Jardine and Douglas E Smith",
       "year": 2017,
       "venue": "Physical Review E 95 (5), 052408, 2017",
-      "citations": 10,
+      "citations": 11,
       "url": "https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.052408",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:9yKSN-GCB0IC"
     },
@@ -278,7 +278,7 @@
       "authors": "Zachary T Berndsen and Nicholas Keller and Shelley Grimes and Paul J Jardine and Douglas E Smith",
       "year": 2014,
       "venue": "Proceedings of the National Academy of Sciences 111 (23), 8345-8350, 2014",
-      "citations": 99,
+      "citations": 98,
       "url": "https://www.pnas.org/doi/abs/10.1073/pnas.1405109111",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:u5HHmVD_uO8C"
     },
