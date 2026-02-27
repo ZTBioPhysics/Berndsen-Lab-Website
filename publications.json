@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-26T04:22:41.291467Z",
+  "last_updated": "2026-02-27T04:20:05.534151Z",
   "scholar_id": "u9i3_ywAAAAJ",
   "total_publications": 32,
   "publications": [
@@ -13,6 +13,15 @@
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:TQgYirikUcIC"
     },
     {
+      "title": "Structural and immunological characterization of the H3 influenza hemagglutinin during antigenic drift",
+      "authors": "Rebeca de Paiva Froes Rocha and Ilhan Tomris and Charles A Bowman and Emma Stevens and Jason Kantorow and Corinna M Plitt and Weiwei Peng and Svearike Oeverdieck and Thales Galdino Andrade and James A Ferguson and Diana D Jung and Rafael Elias Marques and Sander Herfst and Joost Snijder and Srirupa Chakraborty and Alba Torrents de la Peña and Zachary T Berndsen and Robert P de Vries and Andrew B Ward",
+      "year": 2025,
+      "venue": "Nature Communications, 2025",
+      "citations": 1,
+      "url": "https://www.nature.com/articles/s41467-025-66375-7",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:mB3voiENLucC"
+    },
+    {
       "title": "Parenteral vaccination with recombinant EtpA glycoprotein impairs enterotoxigenic E. coli colonization",
       "authors": "Tim J Vickers and David P Buckley and Nazia Khatoon and Alaullah Sheikh and Bipul Setu and Zachary T Berndsen and James M Fleckenstein",
       "year": 2025,
@@ -20,15 +29,6 @@
       "citations": 1,
       "url": "https://journals.asm.org/doi/abs/10.1128/iai.00601-24",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:R3hNpaxXUhUC"
-    },
-    {
-      "title": "Structural and immunological characterization of the H3 influenza hemagglutinin during antigenic drift",
-      "authors": "Rebeca de Paiva Froes Rocha and Ilhan Tomris and Charles A Bowman and Emma Stevens and Jason Kantorow and Corinna M Plitt and Weiwei Peng and Svearike Oeverdieck and Thales Galdino Andrade and James A Ferguson and Diana D Jung and Rafael Elias Marques and Sander Herfst and Joost Snijder and Srirupa Chakraborty and Alba Torrents de la Peña and Zachary T Berndsen and Robert P de Vries and Andrew B Ward",
-      "year": 2025,
-      "venue": "Nature Communications, 2025",
-      "citations": 0,
-      "url": "https://www.nature.com/articles/s41467-025-66375-7",
-      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:mB3voiENLucC"
     },
     {
       "title": "Altered Glycosylation Affects Influenza Hemagglutinin Structural Dynamics",
@@ -224,7 +224,7 @@
       "authors": "Devin Sok and Khoa M Le and Melissa Vadnais and Karen L Saye-Francisco and Joseph G Jardine and Jonathan L Torres and Zachary T Berndsen and Leopold Kong and Robyn Stanfield and Jennifer Ruiz and Alejandra Ramos and Chi-Hui Liang and Patricia L Chen and Michael F Criscitiello and Waithaka Mwangi and Ian A Wilson and Andrew B Ward and Vaughn V Smider and Dennis R Burton",
       "year": 2017,
       "venue": "Nature 548 (7665), 108-111, 2017",
-      "citations": 191,
+      "citations": 192,
       "url": "https://www.nature.com/articles/nature23301",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:qjMakFHDy7sC"
     },
