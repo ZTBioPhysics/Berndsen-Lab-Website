@@ -7,8 +7,22 @@ Only fetches full details for new publications to avoid rate limiting.
 from scholarly import scholarly, ProxyGenerator
 import json
 import os
+import signal
 import time
 from datetime import datetime, timezone
+
+# Hard timeout (seconds) to prevent the script from hanging indefinitely
+# in CI. Applies only on Unix (GitHub Actions runners).
+SCRIPT_TIMEOUT = 480  # 8 minutes
+
+
+def _timeout_handler(signum, frame):
+    raise TimeoutError("Script exceeded hard timeout of %d seconds" % SCRIPT_TIMEOUT)
+
+
+if hasattr(signal, 'SIGALRM'):
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    signal.alarm(SCRIPT_TIMEOUT)
 
 SCHOLAR_ID = "u9i3_ywAAAAJ"
 OUTPUT_FILE = "publications.json"
@@ -185,7 +199,7 @@ def main():
 
     try:
         publications = fetch_publications()
-    except Exception as e:
+    except (Exception, TimeoutError) as e:
         print(f"\nError fetching publications: {type(e).__name__}: {e}")
 
         # If we have cached data, exit gracefully
