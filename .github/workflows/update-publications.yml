@@ -32,8 +32,15 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Fetch publications
-        run: python fetch_pubs.py
-        timeout-minutes: 12
+        run: |
+          timeout --kill-after=30 480 python fetch_pubs.py
+          rc=$?
+          if [ $rc -eq 124 ]; then
+            echo "::warning::Script killed by timeout after 8 minutes; keeping cached publications.json"
+            exit 0
+          fi
+          exit $rc
+        timeout-minutes: 10
         env:
           SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
 

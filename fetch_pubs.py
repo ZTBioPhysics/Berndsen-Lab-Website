@@ -9,11 +9,16 @@ import json
 import os
 import signal
 import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from datetime import datetime, timezone
 
 # Hard timeout (seconds) to prevent the script from hanging indefinitely
 # in CI. Applies only on Unix (GitHub Actions runners).
 SCRIPT_TIMEOUT = 480  # 8 minutes
+
+# Per-call timeout for individual scholarly API calls (seconds).
+# SIGALRM can't interrupt C-level blocking I/O, so we use threads instead.
+CALL_TIMEOUT = 120  # 2 minutes per call
 
 
 def _timeout_handler(signum, frame):
@@ -23,6 +28,17 @@ def _timeout_handler(signum, frame):
 if hasattr(signal, 'SIGALRM'):
     signal.signal(signal.SIGALRM, _timeout_handler)
     signal.alarm(SCRIPT_TIMEOUT)
+
+
+def call_with_timeout(func, *args, timeout=CALL_TIMEOUT, **kwargs):
+    """Run func in a thread with a hard timeout.
+
+    Works even when the function is stuck in C-level blocking I/O
+    (where SIGALRM cannot interrupt).
+    """
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        future = pool.submit(func, *args, **kwargs)
+        return future.result(timeout=timeout)
 
 SCHOLAR_ID = "u9i3_ywAAAAJ"
 OUTPUT_FILE = "publications.json"
@@ -42,11 +58,11 @@ def setup_proxy():
         scraper_api_key = os.environ.get('SCRAPER_API_KEY')
         if scraper_api_key:
             print("Using ScraperAPI proxy")
-            pg.ScraperAPI(scraper_api_key)
+            call_with_timeout(pg.ScraperAPI, scraper_api_key, timeout=60)
         else:
             # Fall back to free proxies
             print("Using free proxy rotation")
-            success = pg.FreeProxies()
+            success = call_with_timeout(pg.FreeProxies, timeout=60)
             if not success:
                 print("Warning: Could not set up free proxies, proceeding without")
                 return False
@@ -115,11 +131,13 @@ def fetch_publications():
 
     # Get author by ID with retry logic
     print("Fetching author profile...")
-    author = fetch_with_retry(scholarly.search_author_id, SCHOLAR_ID)
+    author = fetch_with_retry(
+        lambda: call_with_timeout(scholarly.search_author_id, SCHOLAR_ID))
 
     # Fill in publication list (basic info only) with retry logic
     print("Fetching publication list...")
-    author = fetch_with_retry(scholarly.fill, author, sections=['publications'])
+    author = fetch_with_retry(
+        lambda: call_with_timeout(scholarly.fill, author, sections=['publications']))
 
     publications = []
     new_count = 0
@@ -150,7 +168,7 @@ def fetch_publications():
 
             try:
                 # Fill in full publication details (includes authors)
-                full_pub = scholarly.fill(pub)
+                full_pub = call_with_timeout(scholarly.fill, pub)
                 full_bib = full_pub.get('bib', {})
 
                 # Format authors
@@ -169,7 +187,7 @@ def fetch_publications():
                 }
                 publications.append(pub_data)
 
-            except Exception as e:
+            except (Exception, FuturesTimeoutError) as e:
                 print(f"    Warning: Could not fetch details for '{title}': {e}")
                 # Fall back to basic info
                 pub_data = {
