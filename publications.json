@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-04-24T05:14:49.405461Z",
+  "last_updated": "2026-04-25T04:41:20.083203Z",
   "scholar_id": "u9i3_ywAAAAJ",
-  "total_publications": 32,
+  "total_publications": 33,
   "publications": [
     {
       "title": "The structure of apolipoprotein B100 from human low-density lipoprotein",
@@ -29,6 +29,15 @@
       "citations": 1,
       "url": "https://journals.asm.org/doi/abs/10.1128/iai.00601-24",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:R3hNpaxXUhUC"
+    },
+    {
+      "title": "HUMAN INFECTION WITH ENTEROTOXIGENIC E. COLI ELICITS ANTIBODIES THAT BROADLY NEUTRALIZE MUCIN-DEGRADING PROTEASES OF PATHOGENIC E. COLI AND SHIGELLA",
+      "authors": "David P Buckley and Marjahan Akhtar and Mahima Thapa and Aaron Schmitz and Jackson Turner and Tim J Vickers and Nazia Khatoon and Hasan Kaisar and Jonathan A Coggin and Debayan Ganguli and Alaullah Sheikh and Renee M Laird and Frédéric Poly and Chad K Porter and Fernando Ruiz-Perez and James P Nataro and Mark J Miller and Tafiqur R Bhuiyan and Firdausi Qadri and Sergio Trillo-Muyo and Brendan Dolan and Sjoerd van der Post and Ali Ellebedy and Zachary T Berndsen and James M Fleckenstein",
+      "year": 2025,
+      "venue": "STRUCTURAL DYNAMICS TO THERAPEUTIC INTERACTIONS: VISUALIZING PROLINE …, 2025",
+      "citations": 0,
+      "url": "https://mospace.umsystem.edu/bitstreams/1a87a588-c895-44cd-a4a7-d5e575fc8e5b/download#page=195",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:bEWYMUwI8FkC"
     },
     {
       "title": "Altered Glycosylation Affects Influenza Hemagglutinin Structural Dynamics",
@@ -80,7 +89,7 @@
       "authors": "Zachary T Berndsen and Marjahan Akhtar and Mahima Thapa and Tim J Vickers and Aaron Schmitz and Jonathan L Torres and Sabyasachi Baboo and Pardeep Kumar and Nazia Khatoon and Alaullah Sheikh and Melissa Hamrick and Jolene K Diedrich and Salvador Martinez-Bartolome and Patrick T Garrett and John R Yates III and Jackson S Turner and Renee M Laird and Frédéric Poly and Chad K Porter and Jeffrey Copps and Ali H Ellebedy and Andrew B Ward and James M Fleckenstein",
       "year": 2024,
       "venue": "PLoS pathogens 20 (9), e1012241, 2024",
-      "citations": 6,
+      "citations": 7,
       "url": "https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1012241",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:-f6ydRqryjwC"
     },
@@ -161,7 +170,7 @@
       "authors": "Robyn L Stanfield and Zachary T Berndsen and Ruiqi Huang and Devin Sok and Gabrielle Warner and Jonathan L Torres and Dennis R Burton and Andrew B Ward and Ian A Wilson and Vaughn V Smider",
       "year": 2020,
       "venue": "Science Advances 6 (22), eaba0468, 2020",
-      "citations": 43,
+      "citations": 44,
       "url": "https://www.science.org/doi/abs/10.1126/sciadv.aba0468",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:Zph67rFs4hoC"
     },
@@ -179,7 +188,7 @@
       "authors": "Philip JM Brouwer and Aleksandar Antanasijevic and Zachary Berndsen and Anila Yasmeen and Brooke Fiala and Tom PL Bijl and Ilja Bontjer and Jacob B Bale and William Sheffler and Joel D Allen and Anna Schorcht and Judith A Burger and Miguel Camacho and Daniel Ellis and Christopher A Cottrell and Anna-Janina Behrens and Marco Catalano and Iván del Moral-Sánchez and Thomas J Ketas and Celia LaBranche and Marit J van Gils and Kwinten Sliepen and Lance J Stewart and Max Crispin and David C Montefiori and David Baker and John P Moore and Per Johan Klasse and Andrew B Ward and Neil P King and Rogier W Sanders",
       "year": 2019,
       "venue": "Nature Communications 10 (1), 4272, 2019",
-      "citations": 218,
+      "citations": 219,
       "url": "https://www.nature.com/articles/s41467-019-12080-1",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:0EnyYjriUFMC"
     },
@@ -224,7 +233,7 @@
       "authors": "Devin Sok and Khoa M Le and Melissa Vadnais and Karen L Saye-Francisco and Joseph G Jardine and Jonathan L Torres and Zachary T Berndsen and Leopold Kong and Robyn Stanfield and Jennifer Ruiz and Alejandra Ramos and Chi-Hui Liang and Patricia L Chen and Michael F Criscitiello and Waithaka Mwangi and Ian A Wilson and Andrew B Ward and Vaughn V Smider and Dennis R Burton",
       "year": 2017,
       "venue": "Nature 548 (7665), 108-111, 2017",
-      "citations": 195,
+      "citations": 196,
       "url": "https://www.nature.com/articles/nature23301",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:qjMakFHDy7sC"
     },
