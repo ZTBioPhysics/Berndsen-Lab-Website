@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-01-30",
+  "last_updated": "2026-06-02",
   "articles": [
     {
       "title": "A protein at the heart of heart disease",
@@ -51,6 +51,12 @@
     }
   ],
   "videos": [
+    {
+      "title": "How AlphaFold Revealed the Protein at the Heart of Heart Disease",
+      "source": "Nature",
+      "youtube_id": "9WrWUgEhQCU",
+      "description": "Nature-produced feature on our apolipoprotein B100 structure, showing how cryo-EM and AlphaFold cracked the structure of LDL — featuring Zachary Berndsen, collaborator Keith Cassidy, and the Google DeepMind AlphaFold team including Nobel laureate John Jumper"
+    },
     {
       "title": "Fighting LDL: The Structure of Bad Cholesterol",
       "source": "Facebook",
