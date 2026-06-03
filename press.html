@@ -209,17 +209,17 @@
   </style>
 </head>
 <body>
+  <div id="videos-section" style="display: none;">
+    <div class="section-header" style="margin-top: 0;">
+      <h2>Videos</h2>
+    </div>
+    <div id="video-grid" class="video-grid"></div>
+  </div>
+
   <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid #F1B82D;">News coverage and articles about our research</p>
 
   <div id="press-grid" class="press-grid">
     <div class="loading">Loading articles...</div>
-  </div>
-
-  <div id="videos-section" style="display: none;">
-    <div class="section-header">
-      <h2>Videos</h2>
-    </div>
-    <div id="video-grid" class="video-grid"></div>
   </div>
 
   <script>
@@ -278,11 +278,9 @@
               </div>`;
             } else if (video.facebook_url) {
               const encodedUrl = encodeURIComponent(video.facebook_url);
-              embedHtml = `<div style="width:100%;max-width:600px;">
+              embedHtml = `<div class="video-embed">
                 <iframe src="https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&width=600&height=338"
-                        width="600"
-                        height="338"
-                        style="border:none;overflow:hidden;max-width:100%;"
+                        style="border:none;overflow:hidden;"
                         scrolling="no"
                         frameborder="0"
                         allowfullscreen="true"
