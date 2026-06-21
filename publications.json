@@ -1,8 +1,17 @@
 {
-  "last_updated": "2026-06-20T06:26:50.694740Z",
+  "last_updated": "2026-06-21T06:55:58.841916Z",
   "scholar_id": "u9i3_ywAAAAJ",
-  "total_publications": 33,
+  "total_publications": 34,
   "publications": [
+    {
+      "title": "Human enterotoxigenic Escherichia coli (ETEC) infections elicit antibodies that broadly neutralize mucinases of pathogenic Escherichia coli and Shigella",
+      "authors": "David P Buckley and Marjahan Akhtar and Mahima Thapa and Aaron Schmitz and Jackson Turner and Tim J Vickers and Nazia Khatoon and M Hasanul Kaisar and Jonathan A Coggin and Debayan Ganguli and Alaullah Sheikh and Renee M Laird and Frédéric Poly and Chad K Porter and Fernando Ruiz-Perez and Mark J Miller and Fahima Chowdhury and Tafiqur R Bhuiyan and Firdausi Qadri and Sergio Trillo-Muyo and Brendan Dolan and Sjoerd van der Post and Ali Ellebedy and Zachary T Berndsen and James M Fleckenstein",
+      "year": 2026,
+      "venue": "Proceedings of the National Academy of Sciences 123 (25), e2614012123, 2026",
+      "citations": 0,
+      "url": "https://www.pnas.org/doi/abs/10.1073/pnas.2614012123",
+      "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:TFP_iSt0sucC"
+    },
     {
       "title": "The structure of apolipoprotein B100 from human low-density lipoprotein",
       "authors": "Zachary T Berndsen and C Keith Cassidy",
@@ -89,7 +98,7 @@
       "authors": "Zachary T Berndsen and Marjahan Akhtar and Mahima Thapa and Tim J Vickers and Aaron Schmitz and Jonathan L Torres and Sabyasachi Baboo and Pardeep Kumar and Nazia Khatoon and Alaullah Sheikh and Melissa Hamrick and Jolene K Diedrich and Salvador Martinez-Bartolome and Patrick T Garrett and John R Yates III and Jackson S Turner and Renee M Laird and Frédéric Poly and Chad K Porter and Jeffrey Copps and Ali H Ellebedy and Andrew B Ward and James M Fleckenstein",
       "year": 2024,
       "venue": "PLoS pathogens 20 (9), e1012241, 2024",
-      "citations": 7,
+      "citations": 8,
       "url": "https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1012241",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:-f6ydRqryjwC"
     },
@@ -134,7 +143,7 @@
       "authors": "Yasunori Watanabe and Zachary T Berndsen and Jayna Raghwani and Gemma E Seabright and Joel D Allen and Oliver G Pybus and Jason S McLellan and Ian A Wilson and Thomas A Bowden and Andrew B Ward and Max Crispin",
       "year": 2020,
       "venue": "Nature communications 11 (1), 2688, 2020",
-      "citations": 428,
+      "citations": 429,
       "url": "https://www.nature.com/articles/s41467-020-16567-0",
       "scholar_url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=u9i3_ywAAAAJ&citation_for_view=u9i3_ywAAAAJ:kNdYIx-mwKoC"
     },
