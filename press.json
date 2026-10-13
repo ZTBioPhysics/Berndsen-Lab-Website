@@ -1,6 +1,14 @@
 {
-  "last_updated": "2026-06-02",
+  "last_updated": "2026-10-13",
   "articles": [
+    {
+      "title": "Two minds. One breakthrough in heart disease research",
+      "source": "Mizzou News",
+      "date": "2026-10-13",
+      "url": "https://showme.missouri.edu/2026/two-minds-one-breakthrough-in-heart-disease-research/",
+      "image": "https://showme.missouri.edu/wp-content/uploads/2026/10/101326_Zach_Keith-scaled.jpg",
+      "description": "How a cryo-EM and molecular simulation collaboration at Mizzou solved the structure of ApoB100, and what comes next"
+    },
     {
       "title": "A protein at the heart of heart disease",
       "source": "Mizzou News",
