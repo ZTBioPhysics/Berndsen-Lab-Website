@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications | Berndsen Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { max-width: 860px; }
+
+    .toolbar {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 10px 16px; padding-bottom: 14px; margin-bottom: 8px; border-bottom: 2px solid var(--gold);
+    }
+    .stats { display: flex; flex-wrap: wrap; gap: 4px 0; font-size: 0.9rem; color: var(--muted); }
+    .stats span + span::before { content: "\00B7"; margin: 0 8px; color: #bbb; }
+    .stats strong { color: var(--ink); font-weight: 600; }
+    .sort-controls { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--muted); }
+    .sort-btn {
+      font: inherit; padding: 3px 10px; border: 1px solid var(--line); background: #fff;
+      border-radius: 4px; cursor: pointer; color: var(--ink);
+    }
+    .sort-btn:hover { border-color: var(--gold); }
+    .sort-btn.active { background: var(--gold); border-color: var(--gold); font-weight: 600; }
+
+    h2.section-title {
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted); margin: 26px 0 6px;
+    }
+    .year-heading {
+      font-size: 1.05rem; font-weight: 700; color: var(--ink);
+      margin: 22px 0 2px; padding-bottom: 4px; border-bottom: 1px solid var(--line);
+    }
+
+    .selected .publication { border-left: 3px solid var(--gold); padding-left: 14px; border-bottom: none; margin-bottom: 4px; }
+
+    .pub-authors strong { color: var(--ink); font-weight: 600; }
+    .more-authors {
+      font: inherit; font-size: 0.85rem; color: var(--link); background: none; border: none;
+      padding: 0; cursor: pointer;
+    }
+    .more-authors:hover { text-decoration: underline; }
+    .pub-venue .journal { font-style: italic; }
+
+    .abstract-toggle {
+      margin: 28px 0 8px; font: inherit; font-size: 0.85rem; color: var(--link);
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .abstract-toggle:hover { text-decoration: underline; }
+    .non-paper .pub-title { font-weight: 400; }
+
+    /* Compact view: phone-width embed inside Google Sites */
+    body:has(.compact) { padding: 10px 12px; }
+    .compact { font-size: 0.9rem; }
+    .compact .toolbar { padding-bottom: 8px; }
+    .compact-list { list-style: none; margin: 10px 0 12px; }
+    .compact-list li { margin-bottom: 8px; line-height: 1.35; }
+    .compact-list a {
+      color: var(--ink); font-weight: 600; text-decoration: none;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .compact-list .meta { font-size: 0.78rem; color: var(--muted); }
+    .open-full {
+      display: inline-block; background: var(--gold); color: #000; font-weight: 600; font-size: 0.85rem;
+      padding: 7px 14px; border-radius: 4px; text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"><div class="loading">Loading publications...</div></div>
+
+  <script>
+    // Data lives in the repo root; staging pages read the same files as the live pages.
+    const BASE = location.pathname.includes('/staging/') ? '../' : '';
+    const EMBEDDED = window.self !== window.top;
+
+    let pubs = [], config = {}, lastUpdated = null;
+    let sortMode = 'date', showNonPapers = false, compactRendered = null;
+
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const norm = s => String(s || '').toLowerCase().replace(/[.\-]/g, ' ').replace(/\s+/g, ' ').trim();
+
+    function isNonPaper(p) {
+      const t = p.title || '', v = p.venue || '';
+      if (excludeSet.has(t)) return true;
+      if (/^BPS\d{4}/i.test(t)) return true;                                 // Biophysical Society abstract titles
+      if (/Biophysical Journal\s+\d+\s*\(\d+\)\s*,\s*\d+a\b/i.test(v)) return true; // BJ abstract supplement pages ("317a")
+      if (/annual meeting|abstracts of papers/i.test(v)) return true;
+      if (/^University of /i.test(v)) return true;                            // theses
+      const letters = t.replace(/[^A-Za-z]/g, '');
+      if (letters.length > 20 && letters === letters.toUpperCase()) return true; // all-caps meeting titles
+      return false;
+    }
+    let excludeSet = new Set(), memberSet = new Set();
+
+    function isCompact() {
+      const q = new URLSearchParams(location.search).get('view');
+      if (q === 'compact') return true;
+      if (q === 'full') return false;
+      return EMBEDDED && window.innerWidth < 600;
+    }
+
+    // Author list: always show the first 5, the last 2, and any lab member; collapse the rest.
+    function authorsHtml(authorStr, idx) {
+      const names = String(authorStr || '').split(/\s+and\s+/).map(s => s.trim()).filter(Boolean);
+      const fmt = n => memberSet.has(norm(n)) ? `<strong>${esc(n)}</strong>` : esc(n);
+      if (names.length <= 10) return names.map(fmt).join(', ');
+      const keep = names.map((n, i) => i < 5 || i >= names.length - 2 || memberSet.has(norm(n)));
+      const parts = []; let hidden = 0;
+      names.forEach((n, i) => {
+        if (keep[i]) { if (hidden) { parts.push('&hellip;'); hidden = 0; } parts.push(fmt(n)); }
+        else hidden++;
+      });
+      const short = parts.join(', ');
+      const full = names.map(fmt).join(', ');
+      return `<span class="authors-short">${short} <button class="more-authors" data-i="${idx}">(all ${names.length})</button></span>` +
+             `<span class="authors-full" hidden>${full}</span>`;
+    }
+
+    function venueHtml(v) {
+      v = String(v || '').replace(/,\s*\d{4}\s*$/, '');            // drop trailing ", 2025" (year shown separately)
+      const m = v.match(/^([^0-9,]+?)(\s+\d.*|,.*)?$/);
+      if (!m) return esc(v);
+      return `<span class="journal">${esc(m[1].trim())}</span>${esc(m[2] || '')}`;
+    }
+
+    function pubHtml(p, idx) {
+      const title = p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title);
+      return `
+        <div class="publication${isNonPaper(p) ? ' non-paper' : ''}">
+          <div class="pub-title">${title}</div>
+          <div class="pub-authors">${authorsHtml(p.authors, idx)}</div>
+          ${p.venue ? `<div class="pub-venue">${venueHtml(p.venue)}</div>` : ''}
+          <div class="pub-meta">
+            ${p.year ? `<span class="pub-year">${esc(p.year)}</span>` : ''}
+            ${p.citations > 0 ? `<span class="pub-citations">Cited by <strong>${p.citations}</strong></span>` : ''}
+            <span class="pub-links"><a href="${esc(p.scholar_url)}" target="_blank" rel="noopener">Google Scholar</a></span>
+          </div>
+        </div>`;
+    }
+
+    function stats(papers) {
+      const cites = pubs.reduce((s, p) => s + (p.citations || 0), 0);
+      return `<div class="stats"><span><strong>${papers.length}</strong>&nbsp;papers</span>` +
+             `<span><strong>${cites.toLocaleString('en-US')}</strong>&nbsp;Google Scholar citations</span></div>`;
+    }
+
+    function selectedPubs() {
+      const byTitle = new Map(pubs.map(p => [p.title, p]));
+      return (config.selected_publications || []).map(t => byTitle.get(t)).filter(Boolean);
+    }
+
+    function renderFull() {
+      const papers = pubs.filter(p => !isNonPaper(p));
+      const others = pubs.filter(isNonPaper);
+      const sorted = [...papers].sort(sortMode === 'date'
+        ? (a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0) || (b.citations || 0) - (a.citations || 0)
+        : (a, b) => (b.citations || 0) - (a.citations || 0));
+
+      let i = 0, html = '';
+      html += `<div class="toolbar">${stats(papers)}
+        <span class="sort-controls">Sort by
+          <button class="sort-btn${sortMode === 'date' ? ' active' : ''}" data-sort="date">Year</button>
+          <button class="sort-btn${sortMode === 'citations' ? ' active' : ''}" data-sort="citations">Citations</button>
+        </span></div>`;
+
+      const sel = selectedPubs();
+      if (sel.length) {
+        html += `<h2 class="section-title">Selected publications</h2><div class="selected">`;
+        sel.forEach(p => html += pubHtml(p, i++));
+        html += `</div><h2 class="section-title">All papers</h2>`;
+      }
+
+      let year = null;
+      sorted.forEach(p => {
+        if (sortMode === 'date' && p.year !== year) { year = p.year; html += `<div class="year-heading">${esc(year || 'Undated')}</div>`; }
+        html += pubHtml(p, i++);
+      });
+
+      if (others.length) {
+        html += `<button class="abstract-toggle" id="toggle-np">${showNonPapers ? 'Hide' : 'Show'} ${others.length} conference abstracts, talks and theses</button>`;
+        if (showNonPapers) {
+          html += `<div>`;
+          [...others].sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0)).forEach(p => html += pubHtml(p, i++));
+          html += `</div>`;
+        }
+      }
+      html += `<div class="last-updated">${lastUpdated ? 'Updated from Google Scholar on ' + lastUpdated : ''}</div>`;
+      return html;
+    }
+
+    function renderCompact() {
+      const papers = pubs.filter(p => !isNonPaper(p));
+      const sel = selectedPubs().slice(0, 3);
+      const fullUrl = location.href.split('?')[0] + '?view=full';
+      return `<div class="compact">
+        <div class="toolbar">${stats(papers)}</div>
+        <ul class="compact-list">${sel.map(p => `<li>
+          <a href="${esc(p.url || p.scholar_url)}" target="_blank" rel="noopener">${esc(p.title)}</a>
+          <span class="meta">${esc((p.venue || '').split(/\s\d|,/)[0])}, ${esc(p.year)}</span></li>`).join('')}
+        </ul>
+        <a class="open-full" href="${esc(fullUrl)}" target="_blank" rel="noopener">See all ${papers.length} papers &#8599;</a>
+      </div>`;
+    }
+
+    function render() {
+      compactRendered = isCompact();
+      document.getElementById('app').innerHTML = compactRendered ? renderCompact() : renderFull();
+      if (compactRendered) {
+        // The embed box height is fixed by Google Sites; drop titles until the button fits.
+        const items = () => document.querySelectorAll('.compact-list li');
+        while (window.innerHeight > 0 && document.documentElement.scrollHeight > window.innerHeight && items().length > 0) {
+          items()[items().length - 1].remove();
+        }
+      }
+    }
+
+    document.addEventListener('click', e => {
+      const s = e.target.closest('.sort-btn');
+      if (s) { sortMode = s.dataset.sort; render(); return; }
+      if (e.target.id === 'toggle-np') { showNonPapers = !showNonPapers; render(); return; }
+      const m = e.target.closest('.more-authors');
+      if (m) {
+        const wrap = m.closest('.pub-authors');
+        wrap.querySelector('.authors-short').hidden = true;
+        wrap.querySelector('.authors-full').hidden = false;
+      }
+    });
+
+    // Re-render when the box changes size (Google Sites may size the embed after load, or load it hidden),
+    // and once web fonts arrive, so the compact view is always refitted to the real box height.
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { if (pubs.length && (compactRendered || isCompact() !== compactRendered)) render(); }, 150);
+    });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (pubs.length && compactRendered) render(); });
+
+    Promise.all([
+      fetch(BASE + 'publications.json?v=' + Date.now()).then(r => { if (!r.ok) throw new Error('publications.json ' + r.status); return r.json(); }),
+      fetch(BASE + 'site_config.json?v=' + Date.now()).then(r => r.ok ? r.json() : {}).catch(() => ({}))
+    ]).then(([data, cfg]) => {
+      pubs = data.publications || [];
+      config = cfg || {};
+      excludeSet = new Set(config.exclude_titles || []);
+      memberSet = new Set((config.lab_members || []).map(norm));
+      if (data.last_updated) {
+        lastUpdated = new Date(data.last_updated).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+      }
+      render();
+    }).catch(err => {
+      document.getElementById('app').innerHTML = `<div class="error">Could not load publications (${esc(err.message)}).</div>`;
+    });
+  </script>
+</body>
+</html>
