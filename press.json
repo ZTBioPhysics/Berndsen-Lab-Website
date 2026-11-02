@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-13",
+  "last_updated": "2026-11-01",
   "articles": [
     {
       "title": "Two minds. One breakthrough in heart disease research",
@@ -56,6 +56,22 @@
       "url": "https://deepmind.google/blog/revealing-a-key-protein-behind-heart-disease/",
       "image": "https://lh3.googleusercontent.com/EQ3fU3ufBGJ3-WTKi5BRxnz3MEG3yKVYrzddN-uk5ZBeOscsXRa0tl3SKZXwUHopwOm7D1wYac4M7x-jWsifzBjw1FIOAVd2WLIKzaUKlfVm_aSC4Q=w2880-h1620-n-nu-rw-lo",
       "description": "How cryo-EM and AlphaFold revealed the structure of apolipoprotein B100"
+    },
+    {
+      "title": "New imaging method reveals HIV’s sugary shield in unprecedented detail",
+      "source": "Scripps Research",
+      "date": "2020-10-23",
+      "url": "https://www.scripps.edu/news-events/news/20201023-ward-glycan/",
+      "image": "https://www.scripps.edu/wp-content/uploads/2020/10/20201023-ward-glycan.jpg",
+      "description": "Cryo-EM maps, simulations and mass spectrometry show how glycans cluster on the HIV Env spike, leaving gaps antibodies can target. Zachary Berndsen's postdoctoral work in the Ward lab"
+    },
+    {
+      "title": "A shared target",
+      "source": "MU Division of Research",
+      "date": "2026-10-30",
+      "url": "https://research.missouri.edu/news/shared-target",
+      "image": "https://research.missouri.edu/sites/default/files/inline-images/BernsdenBuckley%20molecules_0.jpg",
+      "description": "Antibodies that stop E. coli and Shigella mucinases (EatA, SepA and Pic) from binding intestinal mucus point to a shared site for vaccine design"
     }
   ],
   "videos": [
