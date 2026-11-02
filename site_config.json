@@ -1,0 +1,48 @@
+{
+  "_notes": [
+    "Hand-edited settings for the embedded pages. publications.json is regenerated daily from Google Scholar; this file is not touched by that job.",
+    "lab_members: names (as Google Scholar writes them) to bold in author lists.",
+    "selected_publications: exact titles to pin at the top of the publications page, in display order.",
+    "exclude_titles: exact titles to hide from the main list (abstracts, talks, theses, duplicates). Visitors can still reveal them with the toggle at the bottom of the list.",
+    "Pattern rules in the publications page also hide future conference abstracts automatically (Biophysical Journal 'NNNa' pages, 'Annual Meeting', ACS abstracts, all-caps titles, 'BPS20xx-' prefixes, theses)."
+  ],
+  "lab_members": [
+    "Zachary T Berndsen",
+    "Zachary Berndsen",
+    "David P Buckley",
+    "Leslie Cooney",
+    "Gabriella Herren",
+    "Bright Yemi",
+    "Janet Musangali",
+    "Ting Wang",
+    "Mariko Sakanaka-Yokoyama"
+  ],
+  "selected_publications": [
+    "The structure of apolipoprotein B100 from human low-density lipoprotein",
+    "Human enterotoxigenic Escherichia coli (ETEC) infections elicit antibodies that broadly neutralize mucinases of pathogenic Escherichia coli and Shigella",
+    "Repeat modules and N-linked glycans define structure and antigenicity of a critical enterotoxigenic E. coli adhesin",
+    "Visualization of the HIV-1 Env glycan shield across scales",
+    "Vulnerabilities in coronavirus glycan shields despite extensive glycosylation",
+    "Nonequilibrium dynamics and ultraslow relaxation of confined DNA during viral packaging"
+  ],
+  "exclude_titles": [
+    "HUMAN INFECTION WITH ENTEROTOXIGENIC E. COLI ELICITS ANTIBODIES THAT BROADLY NEUTRALIZE MUCIN-DEGRADING PROTEASES OF PATHOGENIC E. COLI AND SHIGELLA",
+    "Altered Glycosylation Affects Influenza Hemagglutinin Structural Dynamics",
+    "BPS2025-Evolving glycan shield alters the structural dynamics of influenza hemagglutinin",
+    "BPS2025-Modeling fully lipidated low density lipoprotein",
+    "BPS2025-The structure of apoB100 human low-density lipoprotein",
+    "BPS2025-Human infection with enterotoxigenic E. coli elicits multiple modes of antibody-mediated inhibition of the EatA mucin-degrading protease",
+    "HIV glycosylation",
+    "Single Molecule Studies of Genome Packaging in Bacteriophage Phi29 Reveal Nonequilibrium DNA Dynamics and Continuous Allosteric Regulation of the Packaging Motor Complex",
+    "Single Molecule Studies of Bacteriophage phi29 DNA Terminal Protein Interactions and their Role in DNA Packaging"
+  ],
+  "structures": {
+    "default_pdb": "9EA7",
+    "category_order": [
+      "Lipoproteins",
+      "Bacterial Proteins",
+      "HIV/SIV Envelope Glycoproteins",
+      "Other"
+    ]
+  }
+}
