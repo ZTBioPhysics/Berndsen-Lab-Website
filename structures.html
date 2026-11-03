@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Structures</title>
+  <title>3D Structures | Berndsen Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -17,7 +20,7 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       line-height: 1.5;
       color: #333;
       background: #fff;
@@ -105,7 +108,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #F1B82D;
+      color: #5c4300;
       padding: 8px 12px;
       background: #fff;
       border-radius: 4px;
@@ -248,9 +251,37 @@
         padding: 8px 10px;
       }
     }
+
+    /* Compact view: phone-width embed inside Google Sites (the 3D viewer is unusable at that size) */
+    .compact-view { display: none; }
+    body.compact { overflow: auto; }
+    body.compact .container { display: none; }
+    body.compact .compact-view {
+      display: flex; gap: 12px; align-items: center; padding: 10px; height: 100%;
+    }
+    .compact-view img {
+      width: 42%; max-width: 220px; aspect-ratio: 1; object-fit: contain; background: #fff;
+      border: 1px solid #e5e5e5; border-radius: 6px;
+    }
+    .compact-text { font-size: 0.8rem; color: #555; line-height: 1.35; }
+    .compact-text strong { display: block; color: #1a1a1a; font-size: 0.85rem; margin-bottom: 4px; }
+    .open-full {
+      display: inline-block; margin-top: 8px; background: #F1B82D; color: #000; font-weight: 600;
+      font-size: 0.8rem; padding: 6px 12px; border-radius: 4px; text-decoration: none;
+    }
+    .viewer-placeholder { color: #aaa; font-size: 0.9rem; padding: 24px; }
   </style>
 </head>
 <body>
+  <div class="compact-view" id="compact-view">
+    <img id="compact-img" alt="">
+    <div class="compact-text">
+      <strong id="compact-title">3D structures from the Berndsen Lab</strong>
+      <span id="compact-count"></span><br>
+      <a class="open-full" id="compact-link" target="_blank" rel="noopener">Open 3D viewer &#8599;</a>
+    </div>
+  </div>
+
   <div class="container">
     <div class="sidebar" id="sidebar">
       <button class="collapse-btn" onclick="toggleSidebar()" id="collapse-btn">◀ Hide</button>
@@ -265,7 +296,7 @@
 
     <div class="viewer-container">
       <div class="viewer-header">
-        <span class="viewer-title" id="viewer-title">Select a structure to view</span>
+        <span class="viewer-title" id="viewer-title">Loading&hellip;</span>
         <span class="viewer-hint">Use mouse to rotate, scroll to zoom</span>
       </div>
       <div id="viewer">
@@ -276,12 +307,41 @@
 
   <script>
     let structuresData = [];
+    // Settings shared with the other pages (repo root). Staging pages read the root copy.
+    const BASE = location.pathname.includes('/staging/') ? '../' : '';
+    const EMBEDDED = window.self !== window.top;
+    let siteConfig = { default_pdb: '9EA7', category_order: ['Lipoproteins', 'Bacterial Proteins', 'HIV/SIV Envelope Glycoproteins', 'Other'] };
+
+    function isCompact() {
+      const q = new URLSearchParams(location.search).get('view');
+      if (q === 'compact') return true;
+      if (q === 'full') return false;
+      return EMBEDDED && window.innerWidth < 600;
+    }
+    function rcsbImage(id) {
+      const l = id.toLowerCase();
+      return `https://cdn.rcsb.org/images/structures/${l.slice(1, 3)}/${l}/${l}_assembly-1.jpeg`;
+    }
+    let compactOn = null, viewerLoaded = false;
+    function applyMode() {
+      const c = isCompact();
+      if (c === compactOn) return;
+      compactOn = c;
+      document.body.classList.toggle('compact', c);
+      if (!c && !viewerLoaded && structuresData.length) loadDefault();
+    }
+    function loadDefault() {
+      const want = (siteConfig.default_pdb || '').toUpperCase();
+      const first = document.querySelector('.structure-item');
+      const id = structuresData.some(s => s.id === want) ? want : first?.dataset.pdb;
+      if (id) loadStructure(id);
+    }
 
     // Category definitions based on keywords
     const categories = {
       'HIV/SIV Envelope Glycoproteins': ['HIV', 'SIV', 'Envelope', 'SOSIP', 'ApexGT'],
       'Lipoproteins': ['ApoB', 'LDL', 'Lipoprotein', 'Low-Density'],
-      'Bacterial Proteins': ['Escherichia', 'E. coli', 'EtpA', 'adhesin', 'Bacterial']
+      'Bacterial Proteins': ['Escherichia', 'E. coli', 'EtpA', 'adhesin', 'Bacterial', 'Shigella']
     };
 
     // Categorize a structure based on its title
@@ -364,7 +424,7 @@
       });
 
       // Sort categories by desired order
-      const categoryOrder = ['HIV/SIV Envelope Glycoproteins', 'Lipoproteins', 'Bacterial Proteins', 'Other'];
+      const categoryOrder = siteConfig.category_order || ['Lipoproteins', 'Bacterial Proteins', 'HIV/SIV Envelope Glycoproteins', 'Other'];
 
       let html = '';
       for (const category of categoryOrder) {
@@ -409,6 +469,7 @@
 
       // Load structure in Mol* viewer (using RCSB provider)
       iframe.src = `https://molstar.org/viewer/?pdb=${pdbId.toLowerCase()}&pdb-provider=rcsb`;
+      viewerLoaded = true;
     }
 
     // Toggle sidebar visibility
@@ -424,8 +485,26 @@
       }
     }
 
-    // Initialize
-    fetchStructures();
+    // Initialize: read settings, then fetch structures; load the default entry unless in compact view
+    window.addEventListener('resize', () => { clearTimeout(window._rt); window._rt = setTimeout(applyMode, 150); });
+    fetch(BASE + 'site_config.json?v=' + Date.now())
+      .then(r => r.ok ? r.json() : {})
+      .catch(() => ({}))
+      .then(cfg => {
+        if (cfg && cfg.structures) siteConfig = Object.assign(siteConfig, cfg.structures);
+        const id = (siteConfig.default_pdb || '9EA7').toUpperCase();
+        document.getElementById('compact-img').src = rcsbImage(id);
+        document.getElementById('compact-img').alt = `Structure ${id}`;
+        document.getElementById('compact-link').href = location.href.split('?')[0] + '?view=full';
+        applyMode();
+        return fetchStructures();
+      })
+      .then(() => {
+        const s = structuresData.find(x => x.id === (siteConfig.default_pdb || '').toUpperCase());
+        if (s) document.getElementById('compact-title').textContent = `${s.title} (${s.id})`;
+        document.getElementById('compact-count').textContent = `${structuresData.length} deposited structures. The interactive viewer works best on a larger screen.`;
+        compactOn = null; applyMode();
+      });
   </script>
 </body>
 </html>
