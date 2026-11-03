@@ -19,7 +19,7 @@
       line-height: 1.6;
       color: #333;
       background: #fff;
-      padding: 20px;
+      padding: 16px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -41,10 +41,12 @@
       font-size: 0.95rem;
     }
 
+    /* Four columns at the Google Sites embed width (about 984 px) so every
+       article fits inside the fixed-height embed box. */
     .press-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 16px;
     }
 
     .press-card {
@@ -68,13 +70,13 @@
 
     .card-image {
       width: 100%;
-      height: 180px;
+      height: 120px;
       object-fit: cover;
       background: #f5f5f5;
     }
 
     .card-content {
-      padding: 16px;
+      padding: 12px 14px;
     }
 
     .card-source {
@@ -83,21 +85,21 @@
       letter-spacing: 0.5px;
       color: #5c4300;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     .card-title {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
       color: #1a1a1a;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       line-height: 1.3;
     }
 
     .card-description {
       font-size: 0.9rem;
       color: #555;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -124,7 +126,7 @@
     /* Placeholder for missing images */
     .card-image-placeholder {
       width: 100%;
-      height: 180px;
+      height: 120px;
       background: linear-gradient(135deg, #F1B82D 0%, #e5a820 100%);
       display: flex;
       align-items: center;
@@ -135,8 +137,8 @@
 
     /* Videos section */
     .section-header {
-      margin-top: 48px;
-      margin-bottom: 24px;
+      margin-top: 28px;
+      margin-bottom: 16px;
       padding-bottom: 12px;
       border-bottom: 2px solid #F1B82D;
     }
@@ -148,8 +150,8 @@
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
     }
 
     .video-card {
@@ -189,6 +191,24 @@
     .video-description {
       font-size: 0.9rem;
       color: #555;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Safety net: if the page is ever taller than the embed box (more articles,
+       or the narrow phone version), scroll inside the box instead of cutting
+       off the oldest articles. */
+    html.scroll-inside {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    html.scroll-inside body {
+      height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     @media (max-width: 600px) {
@@ -270,6 +290,7 @@
         }).join('');
 
         if (!(data.videos && data.videos.length)) document.getElementById('news-header').style.marginTop = '0';
+        setTimeout(fitToEmbed, 0);
         // Render videos if present
         if (data.videos && data.videos.length > 0) {
           const videosSection = document.getElementById('videos-section');
@@ -312,6 +333,20 @@
         document.getElementById('press-grid').innerHTML =
           `<div class="error">Error loading articles: ${error.message}</div>`;
       });
+
+    // When embedded (Google Sites gives the embed a fixed height and no scroll
+    // bar), switch to scrolling inside the page if the content does not fit.
+    function fitToEmbed() {
+      if (window.self === window.top) return;
+      const root = document.documentElement;
+      root.classList.remove('scroll-inside');
+      if (document.body.scrollHeight > window.innerHeight + 2) {
+        root.classList.add('scroll-inside');
+      }
+    }
+    window.addEventListener('resize', fitToEmbed);
+    window.addEventListener('load', fitToEmbed);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitToEmbed);
   </script>
 </body>
 </html>
